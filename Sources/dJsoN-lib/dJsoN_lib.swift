@@ -73,7 +73,6 @@ public func dataForJSONFileNamed(string: String) -> Data
     let currentDirectoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
     let fileURL = currentDirectoryURL
         .appendingPathComponent("Tests", isDirectory: true)
-        .appendingPathComponent("cities", isDirectory: true)
         .appendingPathComponent(string)
         .appendingPathExtension("json")
     let jsonFileData = try! Data(contentsOf: fileURL)
