@@ -320,4 +320,34 @@ public func showSportImage(sportName: String, view: UIImageView)
     }
 }
 
+public func getSportFavourites() -> [Sport]
+{
+    var array: [Sport] = []
+    
+    for sport in Sports
+    {
+        if(sport.favourite == true)
+        {
+            array.append(sport)
+        }
+    }
+    
+    return array
+}
+
+public func getCityFavourites() -> [City]
+{
+    var array: [City] = []
+    
+    for city in Cities
+    {
+        if(city.favourite == true)
+        {
+            array.append(city)
+        }
+    }
+    
+    return array
+}
+
 #endif
