@@ -79,9 +79,6 @@ loadCities() | return nothing<br>
 
 loadSports() | return nothing<br>
    -> It saves all the sports saved<br>
-
-onUserRegister() | return nothing<br>
-   -> It will create the json files. Use only on register, the first time.<br>
    
 showCityImage(cityName, view) | return nothing, it will change a live UIImageView<br>
    -> cityName: String | the name of the city you want to show<br>
