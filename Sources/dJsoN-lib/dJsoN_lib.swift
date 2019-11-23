@@ -74,7 +74,7 @@ public struct Resource
   public let type: String
   public let url: URL
 
-  public init(name: String, type: String, sourceFile: StaticString = #file) throws {
+  public init(name: String, type: String, sourceFile: StaticString = #file) {
     self.name = name
     self.type = type
 
