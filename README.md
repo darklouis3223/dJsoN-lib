@@ -90,5 +90,9 @@ showCityImage(cityName, view) | return nothing, it will change a live UIImageVie
 showSportImage(sportName, view) | return nothing, it will change a live UIImageView<br>
    -> sportName: String | the name of the sport you want to show<br>
    -> view: UIImageView | a UIImageView you want to change<br>
+   
+   showSportFavourites() | return instance(s) of Sport<br>
+   
+   showCityFavourites() | return instance(s) of City<br>
 
 ---------------------------
