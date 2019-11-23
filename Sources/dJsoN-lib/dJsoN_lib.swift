@@ -51,41 +51,30 @@ public class Sport : Codable
 public var Sports: [Sport] = []
 public var Cities: [City] = []
 
-public func saveSports()
+fileprivate let _resources: URL =
 {
-    let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    do
+    func packageRoot(of file: String) -> URL?
     {
-        let e = JSONEncoder()
-        e.outputFormatting = .prettyPrinted
-        let data = try! e.encode(Sports)
-        try data.write(to: URL(string: "\(documentDirectoryUrl)/sports.json")!, options: [])
-        //print(String(data: data, encoding: .utf8)!)
-    }
-    catch
-    {
-        print(error)
-    }
-}
-
-fileprivate let _resources: URL = {
-    func packageRoot(of file: String) -> URL? {
-        func isPackageRoot(_ url: URL) -> Bool {
+        func isPackageRoot(_ url: URL) -> Bool
+        {
             let filename = url.appendingPathComponent("Package.swift", isDirectory: false)
             return FileManager.default.fileExists(atPath: filename.path)
         }
 
         var url = URL(fileURLWithPath: file, isDirectory: false)
-        repeat {
+        repeat
+        {
             url = url.deletingLastPathComponent()
-            if url.pathComponents.count <= 1 {
+            if url.pathComponents.count <= 1
+            {
                 return nil
             }
         } while !isPackageRoot(url)
         return url
     }
 
-    guard let root = packageRoot(of: #file) else {
+    guard let root = packageRoot(of: #file) else
+    {
         fatalError("\(#file) must be contained in a Swift Package Manager project.")
     }
     let fileComponents = URL(fileURLWithPath: #file, isDirectory: false).pathComponents
@@ -102,16 +91,31 @@ extension URL {
     }
 }
 
-public func loadSports()
+public func saveSports()
 {
-    guard let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-    else { return }
-    
-    let fileUrl = documentsDirectoryUrl.appendingPathComponent("sports.json")
+    let url = URL(forResource: "sports", type: "json")
     
     do
     {
-        let data = try Data(contentsOf: fileUrl, options: [])
+        let e = JSONEncoder()
+        e.outputFormatting = .prettyPrinted
+        let data = try! e.encode(Sports)
+        try data.write(to: url, options: [])
+        //print(String(data: data, encoding: .utf8)!)
+    }
+    catch
+    {
+        print(error)
+    }
+}
+
+public func loadSports()
+{
+    let url = URL(forResource: "sports", type: "json")
+    
+    do
+    {
+        let data = try Data(contentsOf: url, options: [])
         Sports = try JSONDecoder().decode(Array<Sport>.self, from: data)
     }
     catch
@@ -122,16 +126,14 @@ public func loadSports()
 
 public func saveCities()
 {
-    let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    
-    print("URL: \(documentDirectoryUrl)")
+    let url = URL(forResource: "sports", type: "json")
     
     do
     {
         let e = JSONEncoder()
         e.outputFormatting = .prettyPrinted
         let data = try! e.encode(Cities)
-        try data.write(to: URL(string: "\(documentDirectoryUrl)/cities.json")!, options: [])
+        try data.write(to: url, options: [])
         //print(String(data: data, encoding: .utf8)!)
     }
     catch
@@ -142,14 +144,11 @@ public func saveCities()
 
 public func loadCities()
 {
-    guard let documentsDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-    else { return }
-    
-    let fileUrl = documentsDirectoryUrl.appendingPathComponent("cities.json")
+    let url = URL(forResource: "sports", type: "json")
     
     do
     {
-        let data = try Data(contentsOf: fileUrl, options: [])
+        let data = try Data(contentsOf: url, options: [])
         Cities = try JSONDecoder().decode(Array<City>.self, from: data)
     }
     catch
