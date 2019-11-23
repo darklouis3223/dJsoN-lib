@@ -23,6 +23,8 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "dJsoN-libTests",
-            dependencies: ["dJsoN-lib"]),
+            dependencies: ["dJsoN-lib"],
+            path: "Tests"
+        ),
     ]
 )
