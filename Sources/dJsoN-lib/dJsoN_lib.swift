@@ -68,7 +68,7 @@ public func saveSports()
     }
 }
 
-public func dataForJSONFileNamed(string: String) -> Data
+public func dataForJSONFileNamed(string: String)
 {
     let currentDirectoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
     let fileURL = currentDirectoryURL
@@ -77,7 +77,6 @@ public func dataForJSONFileNamed(string: String) -> Data
         .appendingPathExtension("json")
     let jsonFileData = try! Data(contentsOf: fileURL)
     print(jsonFileData)
-    return jsonFileData
 }
 
 public func loadSports()
