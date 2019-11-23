@@ -126,7 +126,7 @@ public func loadSports()
 
 public func saveCities()
 {
-    let url = URL(forResource: "sports", type: "json")
+    let url = URL(forResource: "cities", type: "json")
     
     do
     {
@@ -144,7 +144,7 @@ public func saveCities()
 
 public func loadCities()
 {
-    let url = URL(forResource: "sports", type: "json")
+    let url = URL(forResource: "cities", type: "json")
     
     do
     {
