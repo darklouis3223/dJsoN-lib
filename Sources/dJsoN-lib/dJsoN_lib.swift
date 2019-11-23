@@ -68,27 +68,38 @@ public func saveSports()
     }
 }
 
-public struct Resource
-{
-  public let name: String
-  public let type: String
-  public let url: URL
+fileprivate let _resources: URL = {
+    func packageRoot(of file: String) -> URL? {
+        func isPackageRoot(_ url: URL) -> Bool {
+            let filename = url.appendingPathComponent("Package.swift", isDirectory: false)
+            return FileManager.default.fileExists(atPath: filename.path)
+        }
 
-  public init(name: String, type: String, sourceFile: StaticString = #file) {
-    self.name = name
-    self.type = type
+        var url = URL(fileURLWithPath: file, isDirectory: false)
+        repeat {
+            url = url.deletingLastPathComponent()
+            if url.pathComponents.count <= 1 {
+                return nil
+            }
+        } while !isPackageRoot(url)
+        return url
+    }
 
-    // The following assumes that your test source files are all in the same directory, and the resources are one directory down and over
-    // <Some folder>
-    //  - Resources
-    //      - <resource files>
-    //  - <Some test source folder>
-    //      - <test case files>
-    let testCaseURL = URL(fileURLWithPath: "\(sourceFile)", isDirectory: false)
-    let testsFolderURL = testCaseURL.deletingLastPathComponent()
-    let resourcesFolderURL = testsFolderURL.deletingLastPathComponent().appendingPathComponent("Resources", isDirectory: true)
-    self.url = resourcesFolderURL.appendingPathComponent("\(name).\(type)", isDirectory: false)
-  }
+    guard let root = packageRoot(of: #file) else {
+        fatalError("\(#file) must be contained in a Swift Package Manager project.")
+    }
+    let fileComponents = URL(fileURLWithPath: #file, isDirectory: false).pathComponents
+    let rootComponenets = root.pathComponents
+    let trailingComponents = Array(fileComponents.dropFirst(rootComponenets.count))
+    let resourceComponents = rootComponenets + trailingComponents[0...1] + ["Resources"]
+    return URL(fileURLWithPath: resourceComponents.joined(separator: "/"), isDirectory: true)
+}()
+
+extension URL {
+    public init(forResource name: String, type: String) {
+        let url = _resources.appendingPathComponent("\(name).\(type)", isDirectory: false)
+        self = url
+    }
 }
 
 public func loadSports()
