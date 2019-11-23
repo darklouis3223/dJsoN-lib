@@ -75,7 +75,7 @@ public func dataForJSONFileNamed(string: String)
         .appendingPathComponent("Tests", isDirectory: true)
         .appendingPathComponent(string)
         .appendingPathExtension("json")
-    print(fileUrl)
+    print(fileURL)
     let jsonFileData = try! Data(contentsOf: fileURL)
     print(jsonFileData)
 }
