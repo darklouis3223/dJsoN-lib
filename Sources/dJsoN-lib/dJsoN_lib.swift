@@ -68,13 +68,13 @@ public func saveSports()
     }
 }
 
-struct Resource
+public struct Resource
 {
-  let name: String
-  let type: String
-  let url: URL
+  public let name: String
+  public let type: String
+  public let url: URL
 
-  init(name: String, type: String, sourceFile: StaticString = #file) throws {
+  public init(name: String, type: String, sourceFile: StaticString = #file) throws {
     self.name = name
     self.type = type
 
