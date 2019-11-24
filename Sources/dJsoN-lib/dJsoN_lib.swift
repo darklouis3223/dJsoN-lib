@@ -64,8 +64,8 @@ public func saveSports()
     {
         var data = try! Data(contentsOf: URL(string: "https://darklouis.eu/sports.json")!, options: [])
         Sports = try! JSONDecoder().decode(Array<Sport>.self, from: data)
-        try data.write(to: URL(string: "\(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)/sports.json")!, options: [])
-        break
+        try! data.write(to: URL(string: "\(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)/sports.json")!, options: [])
+        return
     }
     
     do
@@ -89,8 +89,8 @@ public func loadSports()
     {
         var data = try! Data(contentsOf: URL(string: "https://darklouis.eu/sports.json")!, options: [])
         Sports = try! JSONDecoder().decode(Array<Sport>.self, from: data)
-        try data.write(to: URL(string: "\(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)/sports.json")!, options: [])
-        break
+        try! data.write(to: URL(string: "\(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)/sports.json")!, options: [])
+        return
     }
     
     do
@@ -111,8 +111,8 @@ public func saveCities()
     {
         var data = try! Data(contentsOf: URL(string: "https://darklouis.eu/cities.json")!, options: [])
         Cities = try! JSONDecoder().decode(Array<City>.self, from: data)
-        try data.write(to: URL(string: "\(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)/cities.json")!, options: [])
-        break
+        try! data.write(to: URL(string: "\(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)/cities.json")!, options: [])
+        return
     }
     
     do
@@ -136,8 +136,8 @@ public func loadCities()
     {
         var data = try! Data(contentsOf: URL(string: "https://darklouis.eu/cities.json")!, options: [])
         Cities = try! JSONDecoder().decode(Array<City>.self, from: data)
-        try data.write(to: URL(string: "\(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)/cities.json")!, options: [])
-        break
+        try! data.write(to: URL(string: "\(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)/cities.json")!, options: [])
+        return
     }
     
     do
