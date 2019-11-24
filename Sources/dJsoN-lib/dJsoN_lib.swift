@@ -73,7 +73,7 @@ fileprivate let _resources: URL =
         return url
     }
 
-    let root = packageRoot(of: #file)
+    let root = packageRoot(of: #file)!
     let fileComponents = URL(fileURLWithPath: #file, isDirectory: false).pathComponents
     let rootComponenets = root.pathComponents
     let trailingComponents = Array(fileComponents.dropFirst(rootComponenets.count))
