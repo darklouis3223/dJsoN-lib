@@ -126,12 +126,12 @@ public func loadCities()
 public func onRegister()
 {
     var url = URL(string: "https://darklouis.eu/cities.json")!
-    var data = try Data(contentsOf: url, options: [])
-    Cities = try JSONDecoder().decode(Array<City>.self, from: data)
+    var data = try! Data(contentsOf: url, options: [])
+    Cities = try! JSONDecoder().decode(Array<City>.self, from: data)
     
     url = URL(string: "https://darklouis.eu/sports.json")!
-    data = try Data(contentsOf: url, options: [])
-    Sports = try JSONDecoder().decode(Array<Sport>.self, from: data)
+    data = try! Data(contentsOf: url, options: [])
+    Sports = try! JSONDecoder().decode(Array<Sport>.self, from: data)
     
     saveCities()
     saveSports()
