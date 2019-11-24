@@ -59,7 +59,14 @@ private func getDirectoryUrl(file: String) -> URL
 
 public func saveSports()
 {
-    let url = getDirectoryUrl(file: "sports.json")
+    guard let url = getDirectoryUrl(file: "sports.json")
+    else
+    {
+        var data = try! Data(contentsOf: URL(string: "https://darklouis.eu/sports.json")!, options: [])
+        Sports = try! JSONDecoder().decode(Array<Sport>.self, from: data)
+        try data.write(to: URL(string: "\(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)/sports.json")!, options: [])
+        break
+    }
     
     do
     {
@@ -77,7 +84,14 @@ public func saveSports()
 
 public func loadSports()
 {
-    let url = getDirectoryUrl(file: "sports.json")
+    guard let url = getDirectoryUrl(file: "sports.json")
+    else
+    {
+        var data = try! Data(contentsOf: URL(string: "https://darklouis.eu/sports.json")!, options: [])
+        Sports = try! JSONDecoder().decode(Array<Sport>.self, from: data)
+        try data.write(to: URL(string: "\(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)/sports.json")!, options: [])
+        break
+    }
     
     do
     {
@@ -92,7 +106,14 @@ public func loadSports()
 
 public func saveCities()
 {
-    let url = getDirectoryUrl(file: "cities.json")
+    guard let url = getDirectoryUrl(file: "cities.json")
+    else
+    {
+        var data = try! Data(contentsOf: URL(string: "https://darklouis.eu/cities.json")!, options: [])
+        Cities = try! JSONDecoder().decode(Array<City>.self, from: data)
+        try data.write(to: URL(string: "\(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)/cities.json")!, options: [])
+        break
+    }
     
     do
     {
@@ -110,7 +131,14 @@ public func saveCities()
 
 public func loadCities()
 {
-    let url = getDirectoryUrl(file: "cities.json")
+    guard let url = getDirectoryUrl(file: "cities.json")
+    else
+    {
+        var data = try! Data(contentsOf: URL(string: "https://darklouis.eu/cities.json")!, options: [])
+        Cities = try! JSONDecoder().decode(Array<City>.self, from: data)
+        try data.write(to: URL(string: "\(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!)/cities.json")!, options: [])
+        break
+    }
     
     do
     {
@@ -121,20 +149,6 @@ public func loadCities()
     {
         print(error)
     }
-}
-
-public func onRegister()
-{
-    var url = URL(string: "https://darklouis.eu/cities.json")!
-    var data = try! Data(contentsOf: url, options: [])
-    Cities = try! JSONDecoder().decode(Array<City>.self, from: data)
-    
-    url = URL(string: "https://darklouis.eu/sports.json")!
-    data = try! Data(contentsOf: url, options: [])
-    Sports = try! JSONDecoder().decode(Array<Sport>.self, from: data)
-    
-    saveCities()
-    saveSports()
 }
 
 public func getRandomSport() -> Sport
