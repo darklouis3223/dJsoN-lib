@@ -51,10 +51,10 @@ public class Sport : Codable
 public var Sports: [Sport] = []
 public var Cities: [City] = []
 
-private func getDirectoryUrl(file: String) -> URL
+private func getDirectoryUrl(file: String) -> URL?
 {
     let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    return URL(string: "\(documentDirectoryUrl)/\(file)")!
+    return URL(string: "\(documentDirectoryUrl)/\(file)")
 }
 
 public func saveSports()
