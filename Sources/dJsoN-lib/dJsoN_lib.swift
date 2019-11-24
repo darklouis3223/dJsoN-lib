@@ -51,46 +51,15 @@ public class Sport : Codable
 public var Sports: [Sport] = []
 public var Cities: [City] = []
 
-fileprivate let _resources: URL =
+private func getDirectoryUrl(file: String) -> URL
 {
-    func packageRoot(of file: String) -> URL?
-    {
-        func isPackageRoot(_ url: URL) -> Bool
-        {
-            let filename = url.appendingPathComponent("Package.swift", isDirectory: false)
-            return FileManager.default.fileExists(atPath: filename.path)
-        }
-
-        var url = URL(fileURLWithPath: file, isDirectory: false)
-        repeat
-        {
-            url = url.deletingLastPathComponent()
-            if url.pathComponents.count <= 1
-            {
-                return nil
-            }
-        } while !isPackageRoot(url)
-        return url
-    }
-
-    let root = packageRoot(of: #file)!
-    let fileComponents = URL(fileURLWithPath: #file, isDirectory: false).pathComponents
-    let rootComponenets = root.pathComponents
-    let trailingComponents = Array(fileComponents.dropFirst(rootComponenets.count))
-    let resourceComponents = rootComponenets + trailingComponents[0...1] + ["Resources"]
-    return URL(fileURLWithPath: resourceComponents.joined(separator: "/"), isDirectory: true)
-}()
-
-extension URL {
-    public init(forResource name: String, type: String) {
-        let url = _resources.appendingPathComponent("\(name).\(type)", isDirectory: false)
-        self = url
-    }
+    let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    return URL(string: "\(documentDirectoryUrl)/\(file)")!
 }
 
 public func saveSports()
 {
-    let url = URL(forResource: "sports", type: "json")
+    let url = getDirectoryUrl(file: "sports.json")
     
     do
     {
@@ -108,7 +77,7 @@ public func saveSports()
 
 public func loadSports()
 {
-    let url = URL(forResource: "sports", type: "json")
+    let url = getDirectoryUrl(file: "sports.json")
     
     do
     {
@@ -123,7 +92,7 @@ public func loadSports()
 
 public func saveCities()
 {
-    let url = URL(forResource: "cities", type: "json")
+    let url = getDirectoryUrl(file: "cities.json")
     
     do
     {
@@ -141,7 +110,7 @@ public func saveCities()
 
 public func loadCities()
 {
-    let url = URL(forResource: "cities", type: "json")
+    let url = getDirectoryUrl(file: "cities.json")
     
     do
     {
@@ -152,6 +121,20 @@ public func loadCities()
     {
         print(error)
     }
+}
+
+public func onRegister()
+{
+    var url = URL(string: "https://darklouis.eu/cities.json")!
+    var data = try Data(contentsOf: url, options: [])
+    Cities = try JSONDecoder().decode(Array<City>.self, from: data)
+    
+    url = URL(string: "https://darklouis.eu/sports.json")!
+    data = try Data(contentsOf: url, options: [])
+    Sports = try JSONDecoder().decode(Array<Sport>.self, from: data)
+    
+    saveCities()
+    saveSports()
 }
 
 public func getRandomSport() -> Sport
