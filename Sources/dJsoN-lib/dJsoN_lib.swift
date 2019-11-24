@@ -73,10 +73,7 @@ fileprivate let _resources: URL =
         return url
     }
 
-    guard let root = packageRoot(of: #file) else
-    {
-        fatalError("\(#file) must be contained in a Swift Package Manager project.")
-    }
+    let root = packageRoot(of: #file)
     let fileComponents = URL(fileURLWithPath: #file, isDirectory: false).pathComponents
     let rootComponenets = root.pathComponents
     let trailingComponents = Array(fileComponents.dropFirst(rootComponenets.count))
