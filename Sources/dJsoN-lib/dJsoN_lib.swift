@@ -224,7 +224,7 @@ public func getCityDescription(cityName: String) -> String
     return des
 }
 
-public func toggleSportFavourite(selected: Sport) -> Bool
+public func toggleSportFavourite(selected: Sport) -> Bool?
 {
     for sport in Sports
     {
@@ -235,10 +235,10 @@ public func toggleSportFavourite(selected: Sport) -> Bool
         }
     }
     
-    return false
+    return nil
 }
 
-public func toggleCityFavourite(selected: City) -> Bool
+public func toggleCityFavourite(selected: City) -> Bool?
 {
     for city in Cities
     {
@@ -249,10 +249,10 @@ public func toggleCityFavourite(selected: City) -> Bool
         }
     }
     
-    return false
+    return nil
 }
 
-public func toggleSportFavouriteByName(sportName: String, cityName: String) -> Bool
+public func toggleSportFavouriteByName(sportName: String, cityName: String) -> Bool?
 {
     for sport in Sports
     {
@@ -263,10 +263,10 @@ public func toggleSportFavouriteByName(sportName: String, cityName: String) -> B
         }
     }
     
-    return false
+    return nil
 }
 
-public func toggleCityFavouriteByName(cityName: String) -> Bool
+public func toggleCityFavouriteByName(cityName: String) -> Bool?
 {
     for city in Cities
     {
@@ -277,7 +277,7 @@ public func toggleCityFavouriteByName(cityName: String) -> Bool
         }
     }
     
-    return false
+    return nil
 }
 
 extension String
